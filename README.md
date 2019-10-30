@@ -2,6 +2,8 @@
 
 Code for Insight's SF Blockchain Week's infrastructure workshop.  Please follow the directions exactly as any deviations could have adverse consequences. 
 
+Check out the presentation outlining the workshop [at this link.](https://docs.google.com/presentation/d/1iHPf9xboe8WnpOYD8Bk5O9h1oaKjVAI4oQXQtxe7dqs/edit?usp=sharing)
+
 ## Basic Steps 
 
 1. Install requirements 
@@ -12,19 +14,9 @@ Code for Insight's SF Blockchain Week's infrastructure workshop.  Please follow 
 ## Install requirements 
 
 This deployment was built to run on unix based systems.  If running a Windows machine, you will need to install WSL to run linux (Ubuntu recommended).  Python 3.6+ is required. 
-
-### General Requirements 
-
-```bash
-sudo apt-get install -y libssl-dev build-essential automake pkg-config libtool libffi-dev libgmp-dev libyaml-cpp-dev
-sudo apt-get install -y python3.7-dev libsecp256k1-dev python3-pip 
-```
  
 ### Python Dependencies 
 
-
-- preptools 
-    - `sudo pip3 install preptools`
 - Cookiecutter 
     - `sudo pip3 install cookiecutter`
 - Ansible 
@@ -68,6 +60,12 @@ sudo apt-get install -y python3.7-dev libsecp256k1-dev python3-pip
 
 - Packer 
     - Install 
+        - Windows
+            - Install [chocolatey](https://chocolatey.org/docs/installation)
+            - From command prompt run `choco install packer`
+        - Mac 
+            - Install [brew](https://brew.sh/)
+                - `brew install packer`
         - Linux 
             - Binary 
                 - `wget https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip -O /tmp/packer.zip`
@@ -82,15 +80,16 @@ sudo apt-get install -y python3.7-dev libsecp256k1-dev python3-pip
 - Export these keys 
     - AWS_ACCESS_KEY_ID – Specifies an AWS access key associated with an IAM user or role.
     - AWS_SECRET_ACCESS_KEY – Specifies the secret key associated with the access key. This is essentially the "password" for the access key.
-    - If you are using keys with aws profile, export the profile - `export AWS_PROFILE=profile`
+    - If you are using keys with aws profile, export the profile - `export AWS_PROFILE=<profile>`
 - Ensure the IAM user provided has the AdministratorAccess role and no other policies are applied that explicitly deny
 
 ## Applying 
 
-- Run `cd <env> && chmod +x apply.sh && ./apply.sh`
-    - Might need to nudge it along by running terragrunt from within the directories or running apply twice
-    - Sometimes there are errors with the content delivery system and various API calls 
-- Run `chmod +x destroy.sh && ./destroy.sh` to destroy the resources 
+- To stand up the infrastructure run:
+    - `cd <env> && ./tgrun.sh citizen apply`
+    - You can run this multiple times without breaking it
+- To destroy the infrastructure run:
+    - `cd <env> && ./tgrun.sh citizen destroy`
 
 ### Saving Config Values 
 
@@ -120,12 +119,90 @@ To suppress input run with additional flag `--no-input` flag:
 cookiecutter --config-file=context.yaml https://github.com/robc-io/cookiecutter-icon-p-rep-simple --no-input
 ```
 
-### Notes
+## Registration 
 
-- Places where hard-codes exist 
-    - logging bucket - ok 
-    - global reference 
-        - Need to deal with this somehow
-        - This is best practice to put IAM and other globally scoped resources in their own folder
-        - This obviously is going to cause a lot of issues 
-        
+### Requirements 
+
+```bash
+sudo apt-get install -y libssl-dev build-essential automake pkg-config libtool libffi-dev libgmp-dev libyaml-cpp-dev
+sudo apt-get install -y python3.7-dev libsecp256k1-dev python3-pip 
+```
+
+Install `preptools`
+- `sudo pip3 install preptools`
+
+### Fill Out Config Files 
+
+This file needs to be local. 
+
+prep.json 
+```
+{
+    "name": "Insight",
+    "country": "USA",
+    "city": "San Francisco",
+    "email": "insight.icon.prep@gmail.net",
+    "website": "https://www.insight-icon.net",
+    "details": "https://www.<YOUR SERVER DOMAIN>/<ANY PATH>/details.json",
+    "p2pEndpoint": "<YOUR SERVER IP>:7100"
+}
+```
+
+Make this available to the internet. See [this link](https://www.home.insight-icon.net/registration/details.json) for this example. 
+
+details.json 
+```
+{
+  "representative": {
+    "logo": {
+      "logo_256": "https://www.home.insight-icon.net/static/insight-logo-256.png",
+      "logo_1024": "https://www.home.insight-icon.net/static/insight-logo-1024.png",
+      "logo_svg": "https://www.home.insight-icon.net/static/insight-logo-256.svg"
+    },
+    "media": {
+      "steemit": "",
+      "twitter": "https://twitter.com/insight.icon.prep",
+      "youtube": "https://www.youtube.com/channel/UCMPrlANYbIrpfgtQZQ0w7kw?view_as=subscriber",
+      "facebook": "",
+      "github": "https://github.com/insight-infrastructure",
+      "reddit": "https://www.reddit.com/user/insight-icon",
+      "keybase": "https://keybase.io/robc_io",
+      "telegram": "https://t.me/robcio",
+      "wechat": ""
+    }
+  },
+  "server": {
+    "location": {
+      "country": "USA",
+      "city": "us-east-1"
+    },
+    "server_type": "cloud",
+    "api_endpoint": "<YOUR SERVER IP>:9000"
+  }
+}
+```
+
+### Run Registration Tooling 
+
+```bash
+preptools registerPRep -u https://ctz.solidwallet.io/api/v3 \
+--nid 1 \
+-k ./<YOUR KEYSTORE NAME> \
+--prep-json prep.json  
+```
+
+where `prep.json` is from the last step. 
+
+If something happens, and you want to change your server ip / details, run this, 
+
+```bash
+preptools setPRep -u https://ctz.solidwallet.io/api/v3 \
+--nid 1 \
+-k ./<YOUR KEYSTORE NAME> \
+--prep-json prep.json  
+```
+
+## Fixing Builds 
+
+What the script is doing under the hood is cycling through the modules and running `terragrunt apply` on each of them. If something breaks mid process, you can rerun apply whenever.  When you want to destroy, you need to remember to destroy the items in order otherwise errors occur. 
+

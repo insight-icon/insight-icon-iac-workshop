@@ -13,24 +13,24 @@ locals {
   repo_path = ""
 
   source = "github.com/${local.repo_owner}/${local.repo_name}.git//${local.repo_path}?ref=${local.repo_version}"
+
+  account_vars = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("account.yaml")}"))
+  environment_vars = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("environment.yaml")}"))
 }
 
 dependency "ec2" {
   config_path = "../ec2"
 }
 
-dependency "bastion" {
-  config_path = "../../bastion/dns"
-}
-
 inputs = {
   name = "p-rep-node-configuration"
-  eip = dependency.ec2.outputs.private_ip
+  eip = dependency.ec2.outputs.public_ip
 
   config_user = "ubuntu"
 
-  bastion_dns = dependency.bastion.outputs.public_fqdn
-  bastion_user = "ubuntu" # TODO: Make relative with output from packer when built that way
+  environment = local.environment_vars["environment"]
+
+  config_private_key = local.account_vars["config_private_key"]
 
   config_playbook_file = "${get_parent_terragrunt_dir()}/configuration-playbooks/p-rep-config/configure.yml"
   config_playbook_roles_dir = "${get_parent_terragrunt_dir()}/configuration-playbooks/p-rep-config/roles"
