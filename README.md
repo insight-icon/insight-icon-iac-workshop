@@ -4,6 +4,8 @@ Code for Insight's SF Blockchain Week's infrastructure workshop.  Please follow 
 
 Check out the presentation outlining the workshop [at this link.](https://docs.google.com/presentation/d/1iHPf9xboe8WnpOYD8Bk5O9h1oaKjVAI4oQXQtxe7dqs/edit?usp=sharing)
 
+Reach out to Rob on telegram if you have any issues setting up or tearing down. 
+
 ## Basic Steps 
 
 1. Install requirements 
@@ -120,6 +122,8 @@ cookiecutter --config-file=context.yaml https://github.com/robc-io/cookiecutter-
 ```
 
 ## Registration 
+
+At the time of the workshop, TestNet is currently down so we will not be registering our node. This is for future reference when you actually want to run your node. 
 
 ### Requirements 
 
