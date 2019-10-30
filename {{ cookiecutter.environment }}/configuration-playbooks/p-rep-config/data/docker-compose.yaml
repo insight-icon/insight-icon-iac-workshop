@@ -17,7 +17,7 @@ services:
 
   prep:
     image: iconloop/citizen-node:1910261021xc97f33
-    container_name: "citizen"
+    container_name: "prep"
     restart: always
     environment:
       FORCE_RUN_MODE: "-r citizen"

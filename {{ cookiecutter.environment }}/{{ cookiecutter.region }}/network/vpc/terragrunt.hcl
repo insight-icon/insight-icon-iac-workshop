@@ -18,6 +18,8 @@ inputs = {
 
   cidr = "10.0.0.0/16"
 
+  azs = ["{{ cookiecutter.region }}a"]
+
   private_subnets = [
     "10.0.0.0/24"]
   public_subnets = [

@@ -4,7 +4,6 @@ terraform {
 
     required_var_files = [
       "${get_parent_terragrunt_dir()}/${path_relative_to_include()}/${find_in_parent_folders("region.tfvars")}",
-      "${get_parent_terragrunt_dir()}/${path_relative_to_include()}/${find_in_parent_folders("environment.tfvars")}",
       "${get_parent_terragrunt_dir()}/${path_relative_to_include()}/${find_in_parent_folders("account.tfvars")}"
     ]
   }
@@ -15,7 +14,7 @@ remote_state {
 
   config = {
     encrypt = true
-    region = "us-east-1"
+    region = "{{ cookiecutter.region }}"
     key = "${path_relative_to_include()}/terraform.tfstate"
     bucket = "terraform-states-${get_aws_account_id()}"
     dynamodb_table = "terraform-locks-${get_aws_account_id()}"

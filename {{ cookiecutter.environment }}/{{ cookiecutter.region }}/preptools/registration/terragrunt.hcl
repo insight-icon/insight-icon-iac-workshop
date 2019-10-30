@@ -14,7 +14,9 @@ dependency "ec2" {
 
 
 inputs = {
-  region = "us-east-1"
+  region = "{{ cookiecutter.region }}"
 
   p2p_ip = dependency.ec2.outputs.public_ip
+
+
 }

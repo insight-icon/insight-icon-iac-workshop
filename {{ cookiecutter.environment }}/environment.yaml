@@ -1,4 +1,4 @@
-log_bucket_region: "us-east-1"
+log_bucket_region: "{{ cookiecutter.region }}"
 environment: "{{ cookiecutter.environment }}"
 node_subdomain: "{{ cookiecutter.environment }}"
 stage: "{{ cookiecutter.environment }}"

@@ -9,7 +9,7 @@ include {
 locals {
   repo_owner = "robc-io"
   repo_name = "terraform-aws-icon-node-iam"
-  repo_version = "v0.2.0"
+  repo_version = "master"
   repo_path = ""
 
   source = "github.com/${local.repo_owner}/${local.repo_name}.git//${local.repo_path}?ref=${local.repo_version}"
