@@ -13,7 +13,7 @@
 
 - name: "Update repositories cache"
   apt:
-    update_ cache: yes
+    update_cache: yes
 
 - name: "Upgrade packages to the latest version"
   apt:

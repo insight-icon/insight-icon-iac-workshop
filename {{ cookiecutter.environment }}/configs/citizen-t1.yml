@@ -1,0 +1,14 @@
+name: "c3"
+stack:
+#  - "global/audit/s3-cloudtrail"
+#  - "global/audit/cloudtrail"
+  - "us-east-1/network/vpc-main"
+  - "us-east-1/citizen/keys"
+  - "us-east-1/citizen/iam"
+  - "us-east-1/citizen/sg"
+  - "us-east-1/citizen/packer"
+  - "us-east-1/citizen/ec2"
+  - "us-east-1/citizen/ec2-configuration"
+  - "us-east-1/citizen/dns"
+  - "us-east-1/preptools/registration"
+#  - "us-east-1/bots/rhizome-icon-node-monitor"8DridluIshilax4

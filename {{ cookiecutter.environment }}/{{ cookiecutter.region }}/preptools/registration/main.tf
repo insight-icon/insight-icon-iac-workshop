@@ -78,9 +78,26 @@ resource "aws_s3_bucket_object" "details" {
   content = data.template_file.details.rendered
 }
 
+
 resource "null_resource" "registration" {
   provisioner "local-exec" {
-    command = "preptools -h"
+    command = <<-EOF
+echo "Y" | preptools registerPRep \
+--url https://ctz.solidwallet.io/api/v3 \
+--nid 80 \
+%{if var.keystore_path != ""}--keystore ${var.keystore_path}%{ endif } \
+%{if var.keystore_password != ""}--password "${var.keystore_password}"%{ endif } \
+%{if var.organization_name != ""}--name "${var.organization_name}"%{ endif } \
+%{if var.organization_country != ""}--country "${var.organization_country}"%{ endif } \
+%{if var.organization_city != ""}--city "${var.organization_city}"%{ endif } \
+%{if var.organization_email != ""}--email "${var.organization_email}"%{ endif } \
+%{if var.organization_website != ""}--website "${var.organization_website}"%{ endif } \
+--details ${aws_s3_bucket.bucket.bucket_regional_domain_name}/details.json \
+--p2p-endpoint "${var.p2p_ip}:7100"
+EOF
+  }
+
+  triggers = {
+    build_number = timestamp()
   }
 }
-

@@ -15,7 +15,7 @@ Reach out to Rob on telegram if you have any issues setting up or tearing down.
 
 ## Install requirements 
 
-This deployment was built to run on unix based systems.  If running a Windows machine, you will need to install WSL to run linux (Ubuntu recommended).  Python 3.6+ is required. 
+This deployment was built to run on unix based systems.  Windows is not tested. 
  
 ### Python Dependencies 
 
@@ -39,12 +39,13 @@ This deployment was built to run on unix based systems.  If running a Windows ma
             - Install [brew](https://brew.sh/)
                 - `brew install terraform`
         - Linux
-            - Binary 
-                - `wget https://releases.hashicorp.com/terraform/0.12.12/terraform_0.12.12_linux_amd64.zip -O /tmp/terraform.zip`
-                - `unzip /tmp/terraform.zip -d /tmp/terraform`
-                - `sudo mv /tmp/terraform /usr/local/bin/terraform`
-                - `terraform --version` 
- 
+            - Binary
+```
+wget https://releases.hashicorp.com/terraform/0.12.12/terraform_0.12.12_linux_amd64.zip -O /tmp/terraform.zip`
+unzip /tmp/terraform.zip -d /tmp/terraform
+sudo mv /tmp/terraform /usr/local/bin/terraform
+terraform --version
+```
 - Terragrunt
     - We suggest using [tgswitch](https://github.com/warrensbox/tgswitch))
     - Install from [source](https://github.com/gruntwork-io/terragrunt) 
@@ -55,10 +56,12 @@ This deployment was built to run on unix based systems.  If running a Windows ma
             - `brew install terragrunt`
         - Linux
             - Binary  
-                - `wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.21.1/terragrunt_linux_amd64 -O /tmp/terragrunt`
-                - `chmod +x /tmp/terragrunt`
-                - `sudo mv /tmp/terragrunt /usr/local/bin/terragrunt`
-                - `terragrunt --version` 
+```
+wget https://github.com/gruntwork-io/terragrunt/releases/download/v0.21.1/terragrunt_linux_amd64 -O /tmp/terragrunt
+chmod +x /tmp/terragrunt
+sudo mv /tmp/terragrunt /usr/local/bin/terragrunt
+terragrunt --version
+````
 
 - Packer 
     - Install 
@@ -70,20 +73,26 @@ This deployment was built to run on unix based systems.  If running a Windows ma
                 - `brew install packer`
         - Linux 
             - Binary 
-                - `wget https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip -O /tmp/packer.zip`
-                - `unzip /tmp/packer.zip -d /tmp/packer`
-                - `sudo mv /tmp/packer /usr/local/bin`
-                - `packer --version`
 
+```
+wget https://releases.hashicorp.com/packer/1.4.4/packer_1.4.4_linux_amd64.zip -O /tmp/packer.zip
+unzip /tmp/packer.zip -d /tmp/packer
+sudo mv /tmp/packer /usr/local/bin
+packer --version
+```
 
-## Preparation
-- Run `cookiecutter https://github.com/robc-io/cookiecutter-icon-p-rep-simple`
-- Enter options - You can save your options in a yaml file as [documented below](#saving-config-values)
+## Deployment
+
 - Export these keys 
     - AWS_ACCESS_KEY_ID – Specifies an AWS access key associated with an IAM user or role.
     - AWS_SECRET_ACCESS_KEY – Specifies the secret key associated with the access key. This is essentially the "password" for the access key.
     - If you are using keys with aws profile, export the profile - `export AWS_PROFILE=<profile>`
 - Ensure the IAM user provided has the AdministratorAccess role and no other policies are applied that explicitly deny
+- Run this command: 
+
+```cookiecutter https://github.com/insight-infrastructure```
+
+- Enter options - You can save your options in a yaml file as [documented below](#saving-config-values)
 
 ## Applying 
 

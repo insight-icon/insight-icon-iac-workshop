@@ -89,4 +89,14 @@ variable "p2p_ip" {
   type = string
   default = ""
 }
+  default = ""
 
+//------------------
+
+variable "keystore_path" {
+  type = string
+}
+
+variable "keystore_password" {
+  type = string
+}

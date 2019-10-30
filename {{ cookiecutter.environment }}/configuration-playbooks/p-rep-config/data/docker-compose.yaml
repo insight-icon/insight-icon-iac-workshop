@@ -16,7 +16,7 @@ services:
     restart: always
 
   prep:
-    image: iconloop/citizen-node:1910261021xc97f33
+    image: iconloop/prep-node:1910261021xc97f33
     container_name: "prep"
     restart: always
     environment:
