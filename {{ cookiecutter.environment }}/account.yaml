@@ -3,8 +3,6 @@ account_id: "{{ cookiecutter.account_id }}"
 local_public_key: "{{ cookiecutter.local_public_key }}"
 config_private_key: "{{ cookiecutter.local_private_key }}"
 
-keystore_path: "{{ cookiecutter.keystore_path }}"
-
 stage: "{{ cookiecutter.environment }}"
 
 corporate_ip: "{{ cookiecutter.corporate_ip }}"
