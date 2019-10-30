@@ -26,6 +26,14 @@ This deployment was built to run on unix based systems.  Windows is not tested.
 - yq 
     - `sudo pip3 install yq`    
     
+### meta 
+`meta` is a tool that allows one to manage nested repositories.  We use it to pull in dependencies within the modules.  Make sure you have npm installed on your machine. 
+
+Install meta:
+```bash
+npm i -g meta 
+```
+
 ### Binaries 
     
 - Terraform 
