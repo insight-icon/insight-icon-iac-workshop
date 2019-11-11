@@ -7,9 +7,9 @@ include {
 }
 
 locals {
-  repo_owner = "robc-io"
+  repo_owner = "insight-infrastructure"
   repo_name = "icon-node-packer-build"
-  repo_version = "master"
+  repo_version = "v0.3.0"
   repo_path = ""
 
   source = "github.com/${local.repo_owner}/${local.repo_name}.git//${local.repo_path}?ref=${local.repo_version}"
