@@ -122,7 +122,7 @@ default_context:
     corporate_ip: "1.2.3.4"
     local_public_key: "full/path/to/.ssh/id_rsa.pub"
     local_private_key: "full/path/to/.ssh/id_rsa"
-    keystore_path: "full/path/to/keystore"
+    keystore_name: "full/path/to/keystore"
     keystore_password: "scarystuff"
 ```
 

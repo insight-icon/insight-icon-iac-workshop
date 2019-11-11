@@ -9,7 +9,7 @@ include {
 locals {}
 
 dependency "ec2" {
-  config_path = "../../citizen/ec2"
+  config_path = "../../prep/ec2"
 }
 
 

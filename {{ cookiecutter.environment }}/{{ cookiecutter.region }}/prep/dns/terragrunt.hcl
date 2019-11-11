@@ -25,7 +25,7 @@ dependency "ec2" {
 }
 
 inputs = {
-  hostname = "citizen"
+  hostname = "prep"
 
   domain_name = local.domain_name
   internal_domain_name = local.private_tld

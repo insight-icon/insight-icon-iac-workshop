@@ -21,18 +21,23 @@
     state: mounted
     fstype: ext4
 
-- name: "Copy over the docker-compose file"
-  copy:
-    src: ../../../data/docker-compose.yaml
-    dest: /home/ubuntu/docker-compose.yaml
-    mode: '0440'
-    owner: "ubuntu"
-    group: "ubuntu"
+- name: "Render the docker-compose file"
+  template:
+    src: ../../../data/docker-compose.yml
+    dest: /home/ubuntu/docker-compose.yml
 
 - name: "Copy over the nginx conf files"
   synchronize:
     src: ../../../data/nginx
     dest: /home/ubuntu/
+
+- name: "Change ownership of everything in home"
+  file:
+    path: /home/ubuntu
+    state: directory
+    recurse: yes
+    owner: ubuntu
+    group: ubuntu
 
 - name: "Start node application via docker-compose"
   docker_compose:

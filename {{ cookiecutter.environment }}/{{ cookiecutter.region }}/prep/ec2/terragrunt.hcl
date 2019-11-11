@@ -44,11 +44,11 @@ dependency "user_data" {
 }
 
 inputs = {
-  name = "citizen"
+  name = "prep"
 
-  ebs_volume_size = 140
+  ebs_volume_size = "{{ cookiecutter.ebs_volume_size }}"
   root_volume_size = 8
-  instance_type = "m4.large"
+  instance_type = "{{ cookiecutter.instance_type }}"
   volume_path = "/dev/sdf"
 
   subnet_id = dependency.vpc.outputs.public_subnets[0]

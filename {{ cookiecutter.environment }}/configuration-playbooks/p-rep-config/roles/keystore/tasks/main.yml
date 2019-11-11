@@ -1,0 +1,9 @@
+- name: "Copy over the keystore"
+  copy:
+    {% raw %}
+    src: "{{ keystore_path }}"
+    dest: /home/ubuntu/cert/{{ keystore_path | basename }}
+    {% endraw %}
+    mode: '0440'
+    owner: "ubuntu"
+    group: "ubuntu"

@@ -10,9 +10,7 @@ locals {
   name = "services-sg"
   description = "Security group for support cluster only allowing http(s) / ssh access from bastion"
 
-  account_vars = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("account.yaml")}"))
-
-  coporate_ip = local.account_vars["corporate_ip"]
+  corporate_ip = chomp(run_cmd("curl", "http://ifconfig.co"))
 }
 
 dependency "vpc" {
@@ -27,10 +25,17 @@ inputs = {
 
   ingress_with_cidr_blocks = [
     {
+      from_port = 7100
+      to_port = 7100
+      protocol = "tcp"
+      description = "grpc traffic ingress"
+      cidr_blocks = "0.0.0.0/0"
+    },
+    {
       from_port = 9000
       to_port = 9000
       protocol = "tcp"
-      description = "REST API traffic ingress"
+      description = "json rpc traffic ingress"
       cidr_blocks = "0.0.0.0/0"
     },
     {
@@ -38,7 +43,7 @@ inputs = {
       to_port = 22
       protocol = "tcp"
       description = "ssh ingress"
-      cidr_blocks = "${local.coporate_ip}/32"
+      cidr_blocks = format("%s/%s", local.corporate_ip, "32")
     }
   ]
 

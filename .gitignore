@@ -1,1 +1,7 @@
 .idea
+keystore1
+config.yaml
+
+.terragrunt-cache/
+.terraform/
+

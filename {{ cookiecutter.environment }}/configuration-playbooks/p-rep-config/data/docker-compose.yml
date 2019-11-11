@@ -10,6 +10,7 @@ services:
       - ./nginx/access_lists/:/etc/nginx/access_lists/
       - ./nginx/log/:/var/log/nginx/
     ports:
+      - 7100:7100
       - 9000:9000
     external_links:
       - prep
@@ -20,18 +21,25 @@ services:
     container_name: "prep"
     restart: always
     environment:
-      FORCE_RUN_MODE: "-r citizen"
-      LOOPCHAIN_LOG_LEVEL: "DEBUG"
-      ICON_LOG_LEVEL: "DEBUG"
       DEFAULT_PATH: "/data/loopchain"
       LOG_OUTPUT_TYPE: "file"
       CERT_PATH: "/cert"
       iissCalculatePeriod: "1800"
       termPeriod: "1800"
+      #FASTEST_START: "yes"
+      ENDPOINT_URL: "https://zicon.net.solidwallet.io"
+      NETWORK_ENV: "mainnet"
+      SWITCH_BH_VERSION3: "10324749"
+      LOOPCHAIN_LOG_LEVEL: "SPAM"
+      ICON_LOG_LEVEL: "DEBUG"
+      FASTEST_START: "yes"{% raw %}
+      PRIVATE_KEY_FILENAME: "{{ keystore_path | basename }}" {% endraw %}
+      PRIVATE_PASSWORD: "{{ cookiecutter.keystore_password }}"
     cap_add:
       - SYS_TIME
     volumes:
       - ./data:/data
       - ./cert:/cert
     expose:
+      - 7100
       - 9000

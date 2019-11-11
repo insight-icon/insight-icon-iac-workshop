@@ -16,7 +16,7 @@ locals {
 }
 
 inputs = {
-  type = "citizen"
+  type = "prep"
   ssh_user = "ubuntu"
   prometheus_enabled = false
   consul_enabled = false

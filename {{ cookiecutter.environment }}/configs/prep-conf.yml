@@ -1,0 +1,3 @@
+name: "c3"
+stack:
+  - "us-east-1/prep/ec2-configuration"
