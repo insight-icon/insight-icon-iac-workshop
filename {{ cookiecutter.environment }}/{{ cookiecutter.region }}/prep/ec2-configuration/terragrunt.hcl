@@ -18,13 +18,13 @@ locals {
   environment_vars = yamldecode(file("${get_terragrunt_dir()}/${find_in_parent_folders("environment.yaml")}"))
 }
 
-dependency "ec2" {
-  config_path = "../ec2"
+dependency "eip" {
+  config_path = "../eip"
 }
 
 inputs = {
   name = "p-rep-node-configuration"
-  eip = dependency.ec2.outputs.public_ip
+  eip = dependency.eip.outputs.public_ip
 
   config_user = "ubuntu"
 
