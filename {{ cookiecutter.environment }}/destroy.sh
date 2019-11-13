@@ -10,13 +10,9 @@ OKGREEN='\033[92m'
 OKORANGE='\033[93m'
 RESET='\e[0m'
 
-. prep.sh
+read -p 'Stack: ' stack
 
-f() { DIRECTORIES=("${BASH_ARGV[@]}"); }
-
-shopt -s extdebug
-f "${DIRECTORIES[@]}"
-shopt -u extdebug
+. ./$stack.sh
 
 for i in "${DIRECTORIES[@]}"
 do
