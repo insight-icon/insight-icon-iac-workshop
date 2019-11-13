@@ -7,5 +7,4 @@ stack:
   - "{{ cookiecutter.region }}/prep/packer"
   - "{{ cookiecutter.region }}/prep/user-data"
   - "{{ cookiecutter.region }}/prep/ec2"
-#  - "{{ cookiecutter.region }}/prep/ec2-configuration"
-#  - "{{ cookiecutter.region }}/preptools/registration"
+  - "{{ cookiecutter.region }}/eip/eip-main"

@@ -19,7 +19,7 @@ locals {
 }
 
 dependency "eip" {
-  config_path = "../eip"
+  config_path = "../../eip/eip-main"
 }
 
 inputs = {
