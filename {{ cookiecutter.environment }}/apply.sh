@@ -12,7 +12,7 @@ RESET='\e[0m'
 
 read -p 'Stack: ' stack
 
-. ./$stack.sh
+. ./configs/$stack.sh
 
 SSH_KEY_FILE=/home/`whoami`/.ssh/icon_node
 if [ -f "$SSH_KEY_FILE" ]; then
@@ -28,6 +28,7 @@ export TF_VAR_corporate_ip="`curl ifconfig.co`"
 export TF_VAR_local_public_key=$SSH_KEY_FILE.pub
 export TF_VAR_local_private_key=$SSH_KEY_FILE
 export TF_VAR_config_private_key=$SSH_KEY_FILE
+
 
 for i in "${DIRECTORIES[@]}"
 do

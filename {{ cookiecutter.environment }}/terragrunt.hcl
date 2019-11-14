@@ -14,7 +14,7 @@ remote_state {
 
   config = {
     encrypt = true
-    region = "us-east-1"
+    region = "us-east-1"  ## Do not template this.  It needs to stay fixed at all times
     key = "${path_relative_to_include()}/terraform.tfstate"
     bucket = "terraform-states-${get_aws_account_id()}"
     dynamodb_table = "terraform-locks-${get_aws_account_id()}"

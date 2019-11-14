@@ -7,3 +7,4 @@ stack:
   - "{{ cookiecutter.region }}/prep/packer"
   - "{{ cookiecutter.region }}/prep/user-data"
   - "{{ cookiecutter.region }}/prep/ec2"
+  - "{{ cookiecutter.region }}/eip/eip-main"
