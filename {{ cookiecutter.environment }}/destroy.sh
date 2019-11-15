@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-set -euo pipefail
+# -e : fail as soon as a command errors out
+# -x : print each command before execution (debug tool)
+# -o pipefail : fail as soon as any command in pipeline errors out
+set -eo pipefail
+
 # Cache the plugins
 mkdir -p ~/.terraform.d/plugin-cache
 export TF_PLUGIN_CACHE_DIR=~/.terraform.d/plugin-cache
@@ -18,7 +22,7 @@ read -p 'Stack: ' stack
 
 . ./configs/$stack.sh
 
-SSH_KEY_FILE=/home/`whoami`/.ssh/icon_node
+SSH_KEY_FILE=`pwd`/icon_node
 if [ -f "$SSH_KEY_FILE" ]; then
     echo "$SSH_KEY_FILE exists"
 else

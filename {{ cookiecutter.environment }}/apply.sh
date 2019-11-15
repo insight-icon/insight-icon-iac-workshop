@@ -1,5 +1,9 @@
 #!/usr/bin/env bash
-set -e
+# -e : fail as soon as a command errors out
+# -x : print each command before execution (debug tool)
+# -o pipefail : fail as soon as any command in pipeline errors out
+set -eo pipefail
+
 # Cache the plugins
 mkdir -p ~/.terraform.d/plugin-cache
 export TF_PLUGIN_CACHE_DIR=~/.terraform.d/plugin-cache
@@ -14,11 +18,13 @@ read -p 'Stack: ' stack
 
 . ./configs/$stack.sh
 
-SSH_KEY_FILE=/home/`whoami`/.ssh/icon_node
+SSH_KEY_FILE=`pwd`/icon_node
 if [ -f "$SSH_KEY_FILE" ]; then
     echo "$SSH_KEY_FILE exists"
 else
-    cd ~/.ssh && ssh-keygen -t rsa -b 4096 -f icon_node -N ""
+    ssh-keygen -t rsa -b 4096 -f icon_node -N ""
+    chmod 600 $SSH_KEY_FILE
+    chmod 644 $SSH_KEY_FILE.pub
 fi
 
 export AWS_DEFAULT_REGION="{{ cookiecutter.region }}"
@@ -28,7 +34,6 @@ export TF_VAR_corporate_ip="`curl ifconfig.co`"
 export TF_VAR_local_public_key=$SSH_KEY_FILE.pub
 export TF_VAR_local_private_key=$SSH_KEY_FILE
 export TF_VAR_config_private_key=$SSH_KEY_FILE
-
 
 for i in "${DIRECTORIES[@]}"
 do
