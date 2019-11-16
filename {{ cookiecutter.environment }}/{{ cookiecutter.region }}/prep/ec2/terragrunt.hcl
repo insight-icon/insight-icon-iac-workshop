@@ -35,10 +35,6 @@ dependency "keys" {
   config_path = "../keys"
 }
 
-dependency "user_data" {
-  config_path = "../user-data"
-}
-
 //dependency "user_data" {
 //  config_path = "../user-data"
 //}
