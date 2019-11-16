@@ -6,6 +6,6 @@ DIRECTORIES=( \
 "{{ cookiecutter.region }}/prep/iam" \
 "{{ cookiecutter.region }}/prep/sg" \
 "{{ cookiecutter.region }}/prep/packer" \
-"{{ cookiecutter.region }}/prep/user-data" \
+#"{{ cookiecutter.region }}/prep/user-data" \
 "{{ cookiecutter.region }}/prep/ec2" \
 )

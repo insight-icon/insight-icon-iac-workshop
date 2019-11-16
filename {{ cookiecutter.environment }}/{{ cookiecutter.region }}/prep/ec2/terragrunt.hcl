@@ -39,9 +39,9 @@ dependency "user_data" {
   config_path = "../user-data"
 }
 
-dependency "user_data" {
-  config_path = "../user-data"
-}
+//dependency "user_data" {
+//  config_path = "../user-data"
+//}
 
 inputs = {
   name = "prep"
@@ -56,7 +56,8 @@ inputs = {
   availability_zone = local.region_vars["azs"][0]
   environment = local.environment_vars["environment"]
 
-  user_data = dependency.user_data.outputs.user_data
+//  user_data = dependency.user_data.outputs.user_data
+  user_data = "echo skip"
 
   key_name = dependency.keys.outputs.key_name
   public_key = dependency.keys.outputs.public_key
