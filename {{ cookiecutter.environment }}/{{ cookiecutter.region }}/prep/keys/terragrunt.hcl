@@ -21,6 +21,7 @@ locals {
 inputs = {
   name = "prep-1"
 //  local_public_key = local.account_vars["local_public_key"]
+
   environment = local.environment_vars["environment"]
   tags = {}
 }
